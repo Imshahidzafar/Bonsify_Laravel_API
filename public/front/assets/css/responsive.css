@@ -1,0 +1,163 @@
+@media all and (max-width: 1300px){
+	/*header*/
+	.header_top {
+		padding: 0px 20px;
+	}
+	.header_logo_menu {
+		padding: 0px 10px;
+	}
+}
+/*@media all and (min-width: 1200px){
+	.accordion{
+		display: flex !important;
+	}
+}*/
+@media all and (max-width: 1200px){
+	
+	.main_menu_nav{
+		display: none;
+	}
+	.accordion {
+		display: none;
+		position: absolute;
+		border-radius: 0;
+		z-index: 999999;
+		left: 0;
+		right: 0;
+		width: 100%;
+		 max-width: 100%; 
+	}
+/*	.accordion {
+		width: 100%;
+		 max-width: 100%; 
+	}*/
+	.logo {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+	}
+	.logo img {
+		margin: 10px 0px;
+	}
+	.svg-inline--fa.fa-bars.fa-w-14{
+		font-size: 24px;
+		color: #b73439;
+	}
+	.mobile_bars{
+	  display: block;
+	}
+	.home-widgets .line::before {
+		display: none;
+	}
+	.home-widgets .or::after {
+		display: none;
+}
+
+}
+@media all and (max-width: 991px){
+	.clearfix {
+		flex-direction: column;
+		align-items: center;
+	}
+	.search-classified .search-front > li:nth-child(1) {
+		width: 220px;
+		margin: 0 auto;
+	}
+	.search-classified .search-front > li input {
+		height: 50px;
+		max-width: 100%;
+		margin: 0;
+		border-radius: 0;
+		border: none;
+	}
+	.home-widgets.row.suzuki-home {
+		flex-direction: column;
+		align-items: center;
+	}
+	.home-widgets h2 {
+		padding-top: 50px;
+	}
+	.home-widgets .col-md-6:nth-child(2){
+		width: 100%;
+		text-align: center;
+	}
+	.home-widgets .col-md-6{
+		width: 100%;
+		text-align: center;
+	}
+	.home-widgets.row.suzuki-home {
+		margin-right: 0px !important;
+	}
+	.suzuki-widget-right {
+		width: 100%;
+	}
+	.pull-right.suzuki-widget-right {
+		margin-top: 0px !important;
+		padding-bottom: 50px;
+	}
+	.mr320 {
+		margin-right: 0px !important;
+	}
+	.car-comparisons-list {
+		 width: 100%; 
+		 height: 100%; 
+	}
+	#Home-comparison-list {
+		padding-top: 50px;
+	}
+	.clear-link{
+		float: none;
+	}
+
+	header::after {
+		/* background-image: url(../img/header_top.png); */
+		background: #000409;
+		background: linear-gradient(90deg,#000409 0%, #012046 40%, #013471 80%);
+		background: -webkit-linear-gradient(90deg,#000409 0%, #012046 40%, #013471 80%);
+		background: -moz-linear-gradient(top,#000409 0%, #012046 40%, #013471 80%);
+	}
+	header {
+		background: #013f88;
+		position: relative;
+		height: 650px;
+		z-index: 1;
+}
+	.btn-classified-container {
+		margin-top: 250px;
+	}
+
+}
+
+@media all and (max-width: 575px){
+	.cards {
+		left: 0;
+		right: 0;
+		margin: auto;
+		text-align: center;
+	}
+	
+}
+@media all and (max-width: 450px){
+	.header_top_item {
+		 align-items: flex-start; 
+		flex-direction: column;
+	}
+	.header_top_log ul li a {
+		 padding-left: 0px; 
+		 margin-left: 0px; 
+		 padding-top: 10px
+	}
+
+	
+}
+@media all and (max-width: 400px){
+	.clear-link {
+	 	float: none; 
+	}
+	.btn-classified-container {
+		margin-top: 250px;
+	}
+header {
+	height: 750px;
+	}
+}

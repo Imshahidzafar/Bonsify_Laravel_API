@@ -1,0 +1,247 @@
+@extends('common.main')
+@section('title', 'Brands')
+@section('content')
+@inject('helpers', 'App\Classes\Helpers')
+<div class="panel">
+   <div class="panel-body">
+      <div style="display: flex;justify-content: space-between;">
+         <div>
+            <h3 class="title-hero">Manage Packages</h3>
+         </div>
+         <div style="padding: 4px 5px;">
+            <span class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add package </span>
+         </div>
+      </div>
+      <div class="example-box-wrapper">
+         <div class="example-box-wrapper">
+            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-responsive-md"
+               id="myTable">
+               <thead>
+                  <tr>
+                     <th style="width: 55px;">#</th>
+                     <th style="width: 55px;">Action</th>
+                     <th>Title</th>
+                     <th>Price</th>
+                     <th>Package Images</th>
+                     <th>Date Added</th>
+                     <th>Date Modified</th>
+                     <th>Status</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  @foreach ($packages as $key => $items)
+                  <tr class="odd gradeX">
+                     <input type="hidden" id="real_package_title_{{ @$items->packages_id }}" value="{{ @$items->title }}">
+                     <input type="hidden" id="real_package_description_{{ @$items->packages_id }}" value="{{ @$items->description }}">
+                     <input type="hidden" id="real_package_price_{{ @$items->packages_id }}" value="{{ @$items->price }}">
+                     <input type="hidden" id="real_package_status_{{ @$items->packages_id }}" value="{{ @$items->status }}">
+                     <td>{{ @$key + 1 }}</td>
+                     <td>
+                        <div class="btn-group">
+                           <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                              aria-expanded="false">Action <span class="caret"></span>
+                           </button>
+                           <ul class="dropdown-menu" role="menu">
+                              <li><a data-toggle="modal" class="" data-target="#exampleModal_view_{{ @$items->packages_id }}" >View</a></li>
+                              <li><a data-toggle="modal" id="color_package_{{ @$items->packages_id  }}" class="package" data-target="#exampleModal_edit" >Edit </a></li>
+                              <li><a href="{{ url('/backoffice/delete_package/' . $items->packages_id) }}" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                              </li>
+                           </ul>
+                        </div>
+                     </td>
+                     <td>{{ @$items->title }}</td>
+                     <td>{{ @$items->price }}</td>
+                     <td> 
+                        @if ($items->package_image!='')
+                        <img style="width: 100px;height: 100px;" id="real_package_image_{{ @$items->packages_id }}" src="{{asset('uploads/packages/'.$items->package_image)}}">
+                        @else
+                        <img style="width: 100px;height: 100px;" id="real_package_image_{{ @$items->packages_id }}" src="{{asset('uploads/make/default-image.jpg')}}">
+                        @endif
+                     </td>
+                     <td>{{ @$items->date_added}}</td>
+                     <td>{{ @$items->date_modified}}</td>
+                     <!--  <td>{{ @$items->date_modified}}</td> -->
+                     <td>
+                        @if ($items->status=='Active')
+                        <span class="btn btn-success">Active</span> 
+                        @elseif($items->status=='Inactive')
+                        <span class="btn btn-primary">In Active</span>
+                        @elseif($items->status=='Pending')
+                        <span class="btn btn-primary">Pending</span>
+                        @elseif($items->status=='Inreview')
+                        <span class="btn btn-info">In-Review</span>
+                        @elseif($items->status=='Expired')
+                        <span class="btn btn-warning">Expired</span>
+                        @elseif($items->status=='Deleted')
+                        <span class="btn btn-danger">Deleted</span>
+                        @endif
+                     </td>
+                     @endforeach
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+@foreach ($packages as $key => $itemsss)
+<div class="modal fade" id="exampleModal_view_{{ @$itemsss->packages_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelss" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content" style="margin-top: 188px;">
+         <div class="modal-body" style="display: flex;
+            flex-direction: column;
+            grid-gap: 29px;">
+            <div class="row">
+               <label class="col-sm-6 control-label">Title</label>
+               <div class="col-sm-6">
+                  {{ @$itemsss->title }}
+               </div>
+            </div>
+            <div class="row">
+               <label class="col-sm-6 control-label">Description</label>
+               <div class="col-sm-6">
+                  {{ @$itemsss->description }}
+               </div>
+            </div>
+            <div class="row">
+               <label class="col-sm-6 control-label">Price</label>
+               <div class="col-sm-6">
+                  {{ @$itemsss->price }}
+               </div>
+            </div>
+            <div class="row">
+               <label class="col-sm-6 control-label">Image : </label>
+               <div class="col-sm-6">
+                  @if ($itemsss->package_image!='')
+                  <img style="width: 100px;height: 100px;" id="real_package_image_{{ @$itemsss->packages_id }}" src="{{asset('uploads/packages/'.$itemsss->package_image)}}">
+                  @else
+                  <img style="width: 100px;height: 100px;" id="real_package_image_{{ @$itemsss->packages_id }}" src="{{asset('uploads/make/default-image.jpg')}}">
+                  @endif
+               </div>
+            </div>
+            <div class="row">
+               <label class="col-sm-6 control-label">Status :</label>
+               <div class="col-sm-6">
+                  {{ @$itemsss->status }}
+               </div>
+            </div>
+            <div class="row">
+               <label class="col-sm-6 control-label">Date Added :</label>
+               <div class="col-sm-6">
+                  {{ @$itemsss->date_added}}
+               </div>
+            </div>
+            <div class="row">
+               <label class="col-sm-6 control-label">Date Modified :</label>
+               <div class="col-sm-6">
+                  {{ @$itemsss->date_modified}}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+@endforeach
+<div class="modal fade" id="exampleModal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content" style="margin-top: 188px;">
+         <div class="modal-body">
+            <form class="form-horizontal bordered-row" enctype="multipart/form-data" method="post" action="{{url('/backoffice/edit_package/')}}">
+               {{ csrf_field() }}
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Title <span class="text-danger">*</span></label>
+                  <div class="col-sm-6">
+                     <input type="hidden" name ="id"  id="package_id" required >
+                     <input type="text" id="package_title" class="input-mask form-control" placeholder = 'Enter title' name="title" required >
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Description <span class="text-danger">*</span></label>
+                  <div class="col-sm-6">
+                     <textarea type="text" id="package_desc" class="input-mask form-control" placeholder = 'Enter description' name="description" required ></textarea>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Price   <span class="text-danger">*</span></label>
+                  <div class="col-sm-6">
+                     <input type="text" id="package_price" class="input-mask form-control" placeholder = 'Enter price' name="price" required >
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Select image <span class="text-danger">*</span></label>
+                  <div class="col-sm-6">
+                     <input type="file"  class="form-control" name="image" class="myfrm form-control">
+                  </div>
+                  <img style="width: 100px;" id="package_img">
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Status <span class="text-danger">*</span></label>
+                  <div class="col-sm-6">
+                     <select class="form-control" id="package_status" name="status" required>
+                        <option value=""  >Please select</option>
+                        <option value="Active"  > Active</option>
+                        <option value="Inactive" > Inactive</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-12">
+                     <input type="submit" class="btn btn-primary" value="Update" style="float: right;"></button>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content" style="margin-top: 188px;">
+         <div class="modal-body">
+            <form class="form-horizontal bordered-row" enctype="multipart/form-data" method="post" action="{{url('/backoffice/add_package')}}">
+               {{ csrf_field() }}
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Title <span class="text-danger">*</span></label>
+                  <div class="col-sm-6">
+                     <input type="text" class="input-mask form-control" placeholder = 'Enter title' name="title" required >
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Description <span class="text-danger">*</span></label>
+                  <div class="col-sm-6">
+                     <textarea type="text" class="input-mask form-control" placeholder = 'Enter description' name="description" required ></textarea>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Price   <span class="text-danger">*</span></label>
+                  <div class="col-sm-6">
+                     <input type="text" class="input-mask form-control" placeholder = 'Enter price' name="price" required >
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Select image <span class="text-danger">*</span></label>
+                  <div class="col-sm-6">
+                     <input type="file"  class="form-control" name="image" class="myfrm form-control">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Status <span class="text-danger">*</span></label>
+                  <div class="col-sm-6">
+                     <select class="form-control" id="status" name="status" required>
+                        <option value="Active"> Active</option>
+                        <option value="Inactive"> Inactive</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-12">
+                     <input type="submit" class="btn btn-primary" value="Add" style="float: right;"></button>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<script type="text/javascript"></script>
+@endsection
